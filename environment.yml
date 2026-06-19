@@ -1,4 +1,4 @@
-name: finm250-alpaca-terminal
+name: alpaca-terminal
 channels:
   - conda-forge
 dependencies:
