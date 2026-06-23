@@ -2,9 +2,13 @@
 
 Mini market data terminal using Alpaca APIs for historical OHLCV charts and live bid/ask quote updates in a simple Python-based UI.
 
-## Project Goal
+## Executive Summary
 
-This project is to build a terminal that connects to Alpaca market data, retrieves historical OHLCV bars, displays a chart, and provides a simple UI for real-time quotes for US-listed stocks and ETFs.
+This project built a terminal that connects to Alpaca market data, retrieves historical OHLCV bars, displays a chart, and provides a simple UI for real-time quotes for US-listed stocks and ETFs.
+
+## Demo Video
+
+Demo video: [add link here]
 
 ## Setup
 
@@ -39,11 +43,12 @@ alpaca-market-data-terminal/
 │   ├── config.py           # Loads Alpaca credentials and app settings from environment variables
 │   ├── data_connector.py   # Builds Alpaca market data clients and resolves data feed settings
 │   ├── historical.py       # Fetches historical OHLCV bar data
-│   ├── live_quotes.py      # Fetches latest bid, ask, last trade, and quote timestamps
+│   ├── live_quotes.py      # Streams latest quotes/trades with Alpaca websocket
 │   ├── company.py          # Resolves ticker symbols to company names
-│   └── company_search.py   # Provides equity dropdown choices and fuzzy company/ticker search logic
+│   └── company_search.py   # Provides Stocks/ETFs dropdown and fuzzy company/ticker search logic
 ├── screenshots/
-│   └── .gitkeep            # Placeholder for optional UI screenshots
+│    ├── UI_1.png           # Screenshot of the historical data chart and live quote panel
+│    └── UI_2.png           # Screenshot of the historical data table
 ├── .env.example            # Template for required Alpaca API credentials
 ├── .gitignore              # Excludes local secrets, caches, and system files
 ├── environment.yml         # Conda environment specification
@@ -52,6 +57,10 @@ alpaca-market-data-terminal/
 ├── SKILL.md                # Project-specific workflow notes
 └── README.md               # Project overview, setup, and usage instructions
 ```
+
+## Behavioral Notes
+
+The live quote panel initiates with Alpaca's latest known quote/trade snapshot, then updates from websocket quote and trade events when new market data arrives. During after-hours periods, streamed updates may be sparse, but the panel should still show the latest available snapshot.
 
 ## Security Notes
 
