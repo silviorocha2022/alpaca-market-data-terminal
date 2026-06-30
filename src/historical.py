@@ -17,9 +17,11 @@ def get_historical_bars(
     days: int = 30,
     timeframe_value: int = 5,
     timeframe_unit: TimeFrameUnit = TimeFrameUnit.Minute,
+    start: datetime | None = None,
+    end: datetime | None = None,
 ) -> pd.DataFrame:
-    end = datetime.now(UTC)
-    start = end - timedelta(days=days)
+    end = end or datetime.now(UTC)
+    start = start or end - timedelta(days=days)
     settings = get_settings()
 
     request = StockBarsRequest(
