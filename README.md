@@ -1,14 +1,26 @@
 # alpaca-market-data-terminal
 
-Mini market data terminal using Alpaca APIs for historical OHLCV charts and live bid/ask quote updates in a simple Python-based UI.
+Mini market data and strategy backtesting terminal using Alpaca REST APIs
 
 ## Executive Summary
 
-This project built a terminal that connects to Alpaca market data, retrieves historical OHLCV bars, displays a chart, and provides a simple UI for real-time quotes for US-listed stocks and ETFs.
+This project connects to Alpaca market data to retrieve historical OHLCV,
+display interactive price and volume charts, stream live bid/ask/last-trade
+updates, and test simple long-only trading strategies against a buy-and-hold
+benchmark.
+
+The repository currently contains two Streamlit apps:
+
+- `app.py`: market data terminal with historical OHLCV charts and live quote
+  updates.
+- `backtesting.py`: strategy backtester with buy/sell markers, portfolio value,
+  drawdown, and performance metrics.
 
 ## Demo Video
 
-Demo video: https://youtu.be/Zx6PTew7rmc?si=mOBUHANlP98lEoAR
+Market data terminal: https://youtu.be/Zx6PTew7rmc?si=mOBUHANlP98lEoAR
+
+Strategy backtester: PLACEHOLDER
 
 ## Setup
 
@@ -25,30 +37,57 @@ Create a local `.env` file from the example:
 cp .env.example .env
 ```
 
-Then add your Alpaca paper-trading API key and secret to `.env`.
+Then add your Alpaca API key and secret to `.env`:
+
+```text
+ALPACA_API_KEY=your_paper_api_key_here
+ALPACA_SECRET_KEY=your_paper_secret_key_here
+ALPACA_DATA_FEED=iex
+```
 
 ## Run
+
+Run the market data terminal:
 
 ```bash
 streamlit run app.py
 ```
 
+Run the strategy backtester:
+
+```bash
+streamlit run backtesting.py
+```
+
+## Documentation
+
+Strategy and indicator details are documented separately in
+[`docs/strategy_indicators.md`](docs/strategy_indicators.md).
+
 ## Repository Structure
 
 ```text
 alpaca-market-data-terminal/
-├── app.py                  # Streamlit app entrypoint and UI layout
+├── app.py                  # Streamlit market data terminal
+├── backtesting.py          # Streamlit strategy backtester
+├── docs/
+│   └── strategy_indicators.md  # Strategy and indicator documentation
 ├── src/
 │   ├── __init__.py
-│   ├── config.py           # Loads Alpaca credentials and app settings from environment variables
-│   ├── data_connector.py   # Builds Alpaca market data clients and resolves data feed settings
+│   ├── config.py           # Loads Alpaca credentials and feed settings
+│   ├── data_connector.py   # Builds Alpaca historical and streaming clients
 │   ├── historical.py       # Fetches historical OHLCV bar data
 │   ├── live_quotes.py      # Streams latest quotes/trades with Alpaca websocket
 │   ├── company.py          # Resolves ticker symbols to company names
-│   └── company_search.py   # Provides Stocks/ETFs dropdown and fuzzy company/ticker search logic
+│   ├── company_search.py   # Provides ticker/company search choices
+│   ├── indicators.py       # Adds technical indicator columns
+│   ├── strategies.py       # Generates long-only strategy signals
+│   ├── backtester.py       # Simulates strategy and buy-and-hold performance
+│   ├── metrics.py          # Calculates and formats performance metrics
+│   └── plots.py            # Builds Plotly charts for backtest results
 ├── screenshots/
-│    ├── UI_1.png           # Screenshot of the historical data chart and live quote panel
-│    └── UI_2.png           # Screenshot of the historical data table
+│   ├── UI_1.png            # Historical chart and live quote screenshot
+│   └── UI_2.png            # Historical data table screenshot
 ├── .env.example            # Template for required Alpaca API credentials
 ├── .gitignore              # Excludes local secrets, caches, and system files
 ├── environment.yml         # Conda environment specification
@@ -60,8 +99,11 @@ alpaca-market-data-terminal/
 
 ## Behavioral Notes
 
-The live quote panel initiates with Alpaca's latest known quote/trade snapshot, then updates from websocket quote and trade events when new market data arrives. During after-hours periods, streamed updates may be sparse, but the panel should still show the latest available snapshot.
+During after-hours periods, live quote updates may be sparse in the market data terminal, but the panel should still show the last available quote.
+
+The strategy backtester is intended for exploratory analysis. It is not a
+production trading or portfolio accounting system.
 
 ## Security Notes
 
-DO NOT commit `.env` or real API credentials. Commit `.env.example` only.
+Do not commit `.env` or real API credentials. Commit `.env.example` only.
