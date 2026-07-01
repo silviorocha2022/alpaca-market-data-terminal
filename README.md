@@ -20,7 +20,7 @@ The repository currently contains two Streamlit apps:
 
 Market data terminal: https://youtu.be/Zx6PTew7rmc?si=mOBUHANlP98lEoAR
 
-Strategy backtester: PLACEHOLDER
+Strategy backtester: https://youtu.be/NmMOAOslkIA
 
 ## Setup
 
