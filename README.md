@@ -88,7 +88,7 @@ streamlit run backtesting.py
 
 - [`docs/strategy_indicators.md`](docs/strategy_indicators.md): strategy and
   indicator details.
-- [`docs/feature_engineering_ml_workflow.md`](docs/feature_engineering_ml_workflow.md):
+- [`docs/feature_model.md`](docs/feature_model.md):
   feature engineering, PCA, ML signal, backtesting, and paper-trading workflow.
 
 
@@ -100,7 +100,7 @@ alpaca-market-data-terminal/
 ├── backtesting.py              # Rule-based and ML backtesting terminal
 ├── docs/
 │   ├── Week2_Report.pdf        # Homework 2 report
-│   ├── feature_model.md.       # Features, PCA, and ML Model documentation
+│   ├── feature_model.md        # Features, PCA, and ML Model documentation
 │   └── strategy_indicators.md  # Strategy and indicator documentation
 ├── logs/
 │   └── paper_trading.log       # Runtime paper-trading execution log
