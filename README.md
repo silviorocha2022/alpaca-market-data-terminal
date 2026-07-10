@@ -1,4 +1,4 @@
-# Alpaca Market Data and Trading Terminal
+# Alpaca Market Data and Algorithmic Trading Terminal
 
 Streamlit terminal for Alpaca market data display, strategy backtesting, machine
 learning signal generation, and Alpaca paper-trading execution.
