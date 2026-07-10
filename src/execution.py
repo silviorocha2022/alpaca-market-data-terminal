@@ -238,7 +238,6 @@ def current_strategy_state_from_positions(
     portfolio_value: float | None = None,
     risk_config: RiskConfig | None = None,
 ) -> dict[str, Any]:
-def current_strategy_state_from_positions(positions: list[Any]) -> dict[str, Any]:
     open_positions = []
     for position in positions:
         qty = to_float(object_field(position, "qty")) or 0.0
@@ -303,23 +302,6 @@ def current_strategy_state_from_positions(positions: list[Any]) -> dict[str, Any
         ),
         "has_position": True,
         "positions": position_rows,
-            "equity": "Flat",
-            "status": "Flat",
-            "has_position": False,
-        }
-
-    open_positions.sort(key=lambda item: item[0], reverse=True)
-    active_symbols = [
-        position_symbol(position)
-        for _, position in open_positions
-        if position_symbol(position)
-    ]
-    active_symbol = active_symbols[0] if active_symbols else "n/a"
-
-    return {
-        "equity": active_symbol,
-        "status": "Active",
-        "has_position": True,
     }
 
 
@@ -529,8 +511,6 @@ def remove_strategy_config(
         if not strategy_config_matches(config, strategy, equity)
     ]
     return removed_config, save_strategy_configs(remaining_configs, path)
-    positions = normalize_records(client.get_all_positions())
-    return current_strategy_state_from_positions(positions)
 
 
 def resolve_strategy_display_state(
@@ -546,9 +526,6 @@ def resolve_strategy_display_state(
         for config in normalize_strategy_configs(stop_report.get("stopped_strategy_config")):
             active_configs_by_equity.setdefault(config["equity"], []).append(config)
 
-    active_config: dict[str, Any] | None,
-    stop_report: dict[str, Any] | None,
-) -> dict[str, Any]:
     stopped_positions = stop_report.get("stopped_positions") if stop_report else []
     has_pending_stop_report = bool(
         stop_report is not None
@@ -666,35 +643,6 @@ def resolve_strategy_display_state(
                 "status_tooltip": "",
             }
         ]
-    started_without_position = (
-        active_config is not None
-        and not strategy_state["has_position"]
-        and not has_pending_stop_report
-    )
-
-    if strategy_state["has_position"]:
-        display_strategy = (
-            active_config["strategy"]
-            if active_config is not None
-            and active_config.get("equity") == strategy_state["equity"]
-            else ML_STRATEGY_DISPLAY_NAME
-        )
-        display_equity = strategy_state["equity"]
-        display_status = strategy_state["status"]
-    elif has_pending_stop_report:
-        display_strategy = (
-            active_config["strategy"] if active_config is not None else ML_STRATEGY_DISPLAY_NAME
-        )
-        display_equity = stopped_positions[0].get("symbol", "n/a")
-        display_status = "Stopped"
-    elif started_without_position:
-        display_strategy = active_config["strategy"]
-        display_equity = active_config["equity"]
-        display_status = "Active (Flat)"
-    else:
-        display_strategy = "None"
-        display_equity = "Flat"
-        display_status = "Inactive"
 
     return {
         "display_strategy": display_strategy,
@@ -738,8 +686,6 @@ def build_strategy_start_state(
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     started_at = pd.Timestamp.now(tz="UTC")
     active_capital_allocation = _strategy_capital_allocation(capital_allocation_pct)
-) -> tuple[dict[str, Any], dict[str, Any]]:
-    started_at = pd.Timestamp.now(tz="UTC")
     active_config = {
         "strategy": strategy,
         "equity": equity,
@@ -760,7 +706,6 @@ def build_strategy_start_state(
             f"{active_config['probability_threshold']:.2f}."
         )
 
-    }
     start_report = {
         "message": (
             f"Started {strategy} on {equity}. "
@@ -989,7 +934,6 @@ def positions_to_dataframe(
                 "Cost Basis": format_money(cost_basis),
                 "Unrealized P&L": format_money(unrealized),
                 "Unrealized %": format_percent(object_field(position, "unrealized_plpc")),
-                "Allocation": format_percent(allocation),
                 "Daily P&L": format_money(object_field(position, "unrealized_intraday_pl")),
                 "_sort": abs(market_value or 0.0),
             }
@@ -1008,7 +952,6 @@ def positions_to_dataframe(
                 "Cost Basis",
                 "Unrealized P&L",
                 "Unrealized %",
-                "Allocation",
                 "Daily P&L",
             ]
         )
