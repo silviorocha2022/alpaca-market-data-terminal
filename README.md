@@ -24,6 +24,7 @@ This is paper trading only - no real money is used.
 - Market data terminal: https://youtu.be/Zx6PTew7rmc
 - Strategy backtester: https://youtu.be/NmMOAOslkIA
 - ML signal, backtest, and paper trading: https://youtu.be/1IEC2_sxidU
+- Final Presentation: https://youtu.be/xkLkusaqrt0
 
 ## Screenshots
 
