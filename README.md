@@ -1,16 +1,14 @@
 # Alpaca Market Data and Algorithmic Trading Terminal
 
-Streamlit terminal for Alpaca market data display, strategy backtesting, machine
-learning signal generation, and Alpaca paper-trading execution.
+Streamlit terminal for Alpaca market data display, strategy backtesting, trading signal generation, and Alpaca paper-trading execution.
 
 ## Executive Summary
 
 This project connects to Alpaca APIs to retrieve historical OHLCV data, display
 interactive price and volume charts, stream live bid/ask/last-trade updates,
-backtest long-only trading strategies, and manage rule-based and ML strategies
-in Alpaca paper trading.
+backtest trading strategies, and manage rule-based and ML strategies in Alpaca paper trading.
 
-The system features two Streamlit modes:
+The system features two Streamlit modes/terminals:
 
 - `trading.py`: market data terminal with historical charts, live quotes, paper account monitoring, strategy management, and risk controls.
 - `backtesting.py`: strategy backtesting terminal for rule-based strategies and ML logistic-regression holdout backtesting, benchmarked to buy-and-hold.
@@ -28,25 +26,23 @@ This is paper trading only - no real money is used.
 
 ## Screenshots
 
-### Market Data Terminal
+### Trading Terminal
 
-![Historical chart and live quote panel](screenshots/UI_1.png)
+![Trading Terminal screenshot 1](screenshots/Trading1.png)
 
-![Historical data table](screenshots/UI_2.png)
+![Trading Terminal screenshot 2](screenshots/Trading2.png)
+
+![Trading Terminal screenshot 3](screenshots/Trading3.png)
 
 ### Backtesting Terminal
 
-![Trading signals](screenshots/tradingSignals.png)
+![Backtesting Terminal screenshot 1](screenshots/Backtesting1.png)
 
-![Portfolio value comparison](screenshots/portfolioValue.png)
+![Backtesting Terminal screenshot 2](screenshots/Backtesting2.png)
 
-![Maximum drawdown comparison](screenshots/maxDrawdown.png)
+![Backtesting Terminal screenshot 3](screenshots/Backtesting3.png)
 
-### ML Signal and Paper Trading
-
-![ML signal summary and PCA explained variance](screenshots/ML-signalWithPCA.png)
-
-![Paper trading order log](screenshots/PaperTradingLog.png)
+![Backtesting Terminal screenshot 4](screenshots/Backtesting4.png)
 
 ## Setup
 
